@@ -16,7 +16,9 @@ router.get("/", (req, res) => {
  * Return all sensors
  */
 router.get("/list", (req, res) => {
-  Sensor.findAll()
+  Sensor.findAll({
+    include: [Tamanho, Localizacao]
+  })
     .then(sensor => {
       if (sensor.length === 0)
         return res.status(404).send({ msg: "Nenhum sensor cadastrado" });
