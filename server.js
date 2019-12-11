@@ -11,9 +11,11 @@ app.use(bodyParser.json());
 // Using routes
 const sensor = require("./routes/sensor");
 const marca = require("./routes/marca");
+const tipo = require("./routes/tipo");
 
 app.use("/api/sensor", sensor);
 app.use("/api/marca", marca);
+app.use("/api/tipo", tipo);
 
 const port = 5000;
 app.listen(port, () => {
