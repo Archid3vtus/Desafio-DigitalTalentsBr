@@ -42,7 +42,7 @@ router.post("/add", (req, res) => {
 
   let localizacaoFields = {
     latitude: req.body.latitude,
-    longitude: req.body.float,
+    longitude: req.body.longitude,
     sensor_id: 0
   };
 
@@ -73,6 +73,6 @@ router.put("/edit", (req, res) => {});
 /**
  * Delete a sensor
  */
-router.delete("/remove", (req, res) => {});
+router.delete("/remove/:id", (req, res) => {});
 
 module.exports = router;
