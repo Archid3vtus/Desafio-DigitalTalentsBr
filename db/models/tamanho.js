@@ -12,7 +12,8 @@ module.exports = (sequelize, DataTypes) => {
   );
   Tamanho.associate = function(models) {
     Tamanho.belongsTo(models.Sensor, {
-      foreignKey: "sensor_id"
+      foreignKey: "sensor_id",
+      onDelete: "cascade"
     });
   };
   return Tamanho;

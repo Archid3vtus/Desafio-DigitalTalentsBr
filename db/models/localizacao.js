@@ -11,7 +11,8 @@ module.exports = (sequelize, DataTypes) => {
   );
   Localizacao.associate = function(models) {
     Localizacao.belongsTo(models.Sensor, {
-      foreignKey: "sensor_id"
+      foreignKey: "sensor_id",
+      onDelete: "cascade"
     });
   };
   return Localizacao;

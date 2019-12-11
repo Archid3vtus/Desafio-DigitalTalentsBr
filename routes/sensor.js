@@ -73,6 +73,19 @@ router.put("/edit", (req, res) => {});
 /**
  * Delete a sensor
  */
-router.delete("/remove/:id", (req, res) => {});
+router.delete("/remove/:id", (req, res) => {
+  Sensor.destroy({
+    where: {
+      id: req.params.id
+    }
+  }).then(removed => {
+    if (removed < 1)
+      return res
+        .status(404)
+        .send({ error: { notFound: "Nenhum sensor encontrado" } });
+
+    return res.status(200).send({ success: true });
+  });
+});
 
 module.exports = router;

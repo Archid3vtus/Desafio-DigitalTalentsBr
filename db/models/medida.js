@@ -10,7 +10,8 @@ module.exports = (sequelize, DataTypes) => {
   );
   Medida.associate = function(models) {
     Medida.belongsTo(models.Sensor, {
-      foreignKey: "sensor_id"
+      foreignKey: "sensor_id",
+      onDelete: "cascade"
     });
   };
   return Medida;
