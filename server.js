@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const sequelize = require("./db/models/index").sequelize;
+const addData = require("./helpers/initialData");
 
 const app = express();
 
@@ -20,9 +21,12 @@ app.listen(port, () => {
     .query('SELECT 1 FROM "Sensor" LIMIT 0')
     .then(() => console.log("Tables are present"))
     .catch(err => {
-      console.log(err);
-      sequelize.sync({
-        alter: true
-      });
+      sequelize
+        .sync({
+          alter: true
+        })
+        .then(() => {
+          addData();
+        });
     });
 });
