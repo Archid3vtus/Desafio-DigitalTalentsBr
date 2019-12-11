@@ -23,8 +23,7 @@ router.get("/list", (req, res) => {
 
       return res.status(200).send({ success: true, sensor });
     })
-    .then(err => {
-      console.log(err);
+    .catch(err => {
       return res.status(400).send({ erro: "Erro inesperado" });
     });
 });
@@ -68,7 +67,43 @@ router.post("/add", (req, res) => {
 /**
  * Edit a sensor
  */
-router.put("/edit", (req, res) => {});
+router.put("/edit/:id", (req, res) => {
+  let tamanhoFields = {
+    altura: req.body.altura,
+    largura: req.body.largura,
+    comprimento: req.body.comprimento
+  };
+
+  let localizacaoFields = {
+    latitude: req.body.latitude,
+    longitude: req.body.longitude
+  };
+
+  let sensorFields = {
+    codename: req.body.codename,
+    tensao_id: req.body.tensao_id,
+    marca_id: req.body.marca_id,
+    tipo_id: req.body.tipo_id
+  };
+
+  Sensor.update(sensorFields, {
+    where: {
+      id: req.params.id
+    }
+  }).then(updatedRowsSen => {
+    Tamanho.update(tamanhoFields, {
+      where: { sensor_id: req.params.id }
+    }).then(updatedRowsTam => {
+      Localizacao.update(localizacaoFields, {
+        where: {
+          sensor_id: req.params.id
+        }
+      }).then(updatedRownsLoc => {
+        return res.status(200).send({ success: true });
+      });
+    });
+  });
+});
 
 /**
  * Delete a sensor
