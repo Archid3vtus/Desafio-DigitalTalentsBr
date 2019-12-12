@@ -1,31 +1,35 @@
 import React, { Component } from "react";
-import {
-  Container,
-  Collapse,
-  Table,
-  ListGroup,
-  ListGroupItem,
-  Spinner
-} from "reactstrap";
+import { Collapse, Table, ListGroup, ListGroupItem, Spinner } from "reactstrap";
 
 import { listSensores } from "../actions/sensor";
+import { listMarca } from "../actions/marca";
+import { listTipo } from "../actions/tipo";
+import { listTensao } from "../actions/tensao";
 
 class Administracao extends Component {
   state = {
-    sensores: null,
+    sensores: [],
     sensorCollapse: false,
 
-    marca: null,
-    marcaCollapse: false
+    marcas: [],
+    marcaCollapse: false,
+
+    tipos: [],
+    tipoCollapse: false,
+
+    tensoes: [],
+    tensaoCollapse: false
   };
 
   async componentDidMount() {
-    /*listSensores().then(data => {
-      this.setState({ sensores: data.data.sensor });
-      console.log(data);
-    });*/
     let sensorRequest = await listSensores();
+    let marcaRequest = await listMarca();
+    let tipoRequest = await listTipo();
+    let tensaoRequest = await listTensao();
 
+    this.setState({ marcas: marcaRequest.data });
+    this.setState({ tipos: tipoRequest.data });
+    this.setState({ tensoes: tensaoRequest.data });
     this.setState({ sensores: sensorRequest.data.sensor });
   }
 
@@ -63,12 +67,30 @@ class Administracao extends Component {
         <tbody>
           {this.state.sensores.map(sensor => {
             return (
-              <tr>
+              <tr key="{sensor.id}">
                 <th>{sensor.id}</th>
                 <td>{sensor.codename}</td>
-                <td>{sensor.tensao_id}</td>
-                <td>{sensor.marca_id}</td>
-                <td>{sensor.tipo_id}</td>
+                <td>
+                  {
+                    this.state.tensoes.find(
+                      tensao => tensao.id === sensor.tensao_id
+                    ).valor
+                  }
+                  v
+                </td>
+                <td>
+                  {
+                    this.state.marcas.find(
+                      marca => marca.id === sensor.marca_id
+                    ).nome
+                  }
+                </td>
+                <td>
+                  {
+                    this.state.tipos.find(tipo => tipo.id === sensor.tipo_id)
+                      .nome
+                  }
+                </td>
                 <td>{sensor.Tamanho.altura}</td>
                 <td>{sensor.Tamanho.largura}</td>
                 <td>{sensor.Tamanho.comprimento}</td>
