@@ -58,6 +58,7 @@ class Administracao extends Component {
               tensoes={this.state.tensoes}
             ></SensorTable>
           </Collapse>
+
           <ListGroupItem
             id="marcas"
             tag="button"
@@ -69,6 +70,7 @@ class Administracao extends Component {
           <Collapse isOpen={this.state.open === "marcas"}>
             <GeneralTable tableType={this.state.marcas}></GeneralTable>
           </Collapse>
+
           <ListGroupItem
             id="tipos"
             tag="button"
@@ -79,6 +81,18 @@ class Administracao extends Component {
           </ListGroupItem>
           <Collapse isOpen={this.state.open === "tipos"}>
             <GeneralTable tableType={this.state.tipos}></GeneralTable>
+          </Collapse>
+
+          <ListGroupItem
+            id="tensoes"
+            tag="button"
+            action
+            onClick={this.toggleCollapse}
+          >
+            Tensóes de bateria
+          </ListGroupItem>
+          <Collapse isOpen={this.state.open === "tensoes"}>
+            <GeneralTable tableType={this.state.tensoes}></GeneralTable>
           </Collapse>
         </ListGroup>
       </div>
