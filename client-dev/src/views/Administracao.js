@@ -69,6 +69,17 @@ class Administracao extends Component {
           <Collapse isOpen={this.state.open === "marcas"}>
             <GeneralTable tableType={this.state.marcas}></GeneralTable>
           </Collapse>
+          <ListGroupItem
+            id="tipos"
+            tag="button"
+            action
+            onClick={this.toggleCollapse}
+          >
+            Tipos de sensor
+          </ListGroupItem>
+          <Collapse isOpen={this.state.open === "tipos"}>
+            <GeneralTable tableType={this.state.tipos}></GeneralTable>
+          </Collapse>
         </ListGroup>
       </div>
     );
