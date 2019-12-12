@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Collapse, Table, ListGroup, ListGroupItem, Spinner } from "reactstrap";
 import SensorTable from "../components/SensorTable";
+import GeneralTable from "../components/GeneralTable";
 
 import { listSensores } from "../actions/sensor";
 import { listMarca } from "../actions/marca";
@@ -58,13 +59,16 @@ class Administracao extends Component {
             ></SensorTable>
           </Collapse>
           <ListGroupItem
-            id="marca"
+            id="marcas"
             tag="button"
             action
             onClick={this.toggleCollapse}
           >
             Marcas e Fornecedores
           </ListGroupItem>
+          <Collapse isOpen={this.state.open === "marcas"}>
+            <GeneralTable tableType={this.state.marcas}></GeneralTable>
+          </Collapse>
         </ListGroup>
       </div>
     );
