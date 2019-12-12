@@ -10,16 +10,10 @@ import { listTensao } from "../actions/tensao";
 class Administracao extends Component {
   state = {
     sensores: [],
-    sensorCollapse: false,
-
     marcas: [],
-    marcaCollapse: false,
-
     tipos: [],
-    tipoCollapse: false,
-
     tensoes: [],
-    tensaoCollapse: false
+    open: null
   };
 
   async componentDidMount() {
@@ -36,73 +30,11 @@ class Administracao extends Component {
 
   toggleCollapse = e => {
     // eslint-disable-next-line default-case
-    switch (e.target.id) {
-      case "sensores":
-        this.setState({ sensorCollapse: !this.state.sensorCollapse });
-        break;
-      case "marca":
+    if (e.target.id === this.state.open) {
+      this.setState({ open: null });
+    } else {
+      this.setState({ open: e.target.id });
     }
-  };
-
-  sensorTable = () => {
-    if (this.state.sensores === null) {
-      return <Spinner />;
-    }
-
-    return (
-      <Table responsive striped>
-        <thead>
-          <tr>
-            <th>id</th>
-            <th>Codenome</th>
-            <th>Tensão da Bateria</th>
-            <th>Marca</th>
-            <th>Tipo de sensores</th>
-            <th>Altura</th>
-            <th>Largura</th>
-            <th>Comprimento</th>
-            <th>Latitude</th>
-            <th>Longitude</th>
-          </tr>
-        </thead>
-        <tbody>
-          {this.state.sensores.map(sensor => {
-            return (
-              <tr key="{sensor.id}">
-                <th>{sensor.id}</th>
-                <td>{sensor.codename}</td>
-                <td>
-                  {
-                    this.state.tensoes.find(
-                      tensao => tensao.id === sensor.tensao_id
-                    ).valor
-                  }
-                  v
-                </td>
-                <td>
-                  {
-                    this.state.marcas.find(
-                      marca => marca.id === sensor.marca_id
-                    ).nome
-                  }
-                </td>
-                <td>
-                  {
-                    this.state.tipos.find(tipo => tipo.id === sensor.tipo_id)
-                      .nome
-                  }
-                </td>
-                <td>{sensor.Tamanho.altura}</td>
-                <td>{sensor.Tamanho.largura}</td>
-                <td>{sensor.Tamanho.comprimento}</td>
-                <td>{sensor.Localizacao.latitude}</td>
-                <td>{sensor.Localizacao.longitude}</td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </Table>
-    );
   };
 
   render() {
@@ -117,7 +49,7 @@ class Administracao extends Component {
           >
             Sensores
           </ListGroupItem>
-          <Collapse isOpen={this.state.sensorCollapse}>
+          <Collapse isOpen={this.state.open === "sensores"}>
             <SensorTable
               sensores={this.state.sensores}
               marcas={this.state.marcas}
