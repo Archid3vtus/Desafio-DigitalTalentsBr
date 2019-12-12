@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Collapse, Table, ListGroup, ListGroupItem, Spinner } from "reactstrap";
+import { Collapse, ListGroup, ListGroupItem } from "reactstrap";
 import SensorTable from "../components/SensorTable";
 import GeneralTable from "../components/GeneralTable";
 

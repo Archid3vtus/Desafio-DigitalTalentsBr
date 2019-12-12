@@ -14,7 +14,7 @@ function SensorTable(props) {
           <th>Codenome</th>
           <th>Tensão da Bateria</th>
           <th>Marca</th>
-          <th>Tipo de sensores</th>
+          <th>Tipo de sensore</th>
           <th>Altura</th>
           <th>Largura</th>
           <th>Comprimento</th>
@@ -23,9 +23,9 @@ function SensorTable(props) {
         </tr>
       </thead>
       <tbody>
-        {props.sensores.map(sensor => {
+        {props.sensores.map((sensor, i) => {
           return (
-            <tr key="{sensor.id}">
+            <tr key={i}>
               <th>{sensor.id}</th>
               <td>{sensor.codename}</td>
               <td>
