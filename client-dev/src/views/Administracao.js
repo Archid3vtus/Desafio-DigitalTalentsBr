@@ -3,36 +3,15 @@ import { Collapse, ListGroup, ListGroupItem } from "reactstrap";
 import SensorTable from "../components/SensorTable";
 import GeneralTable from "../components/GeneralTable";
 
-import { listSensores } from "../actions/sensor";
-import { listMarca } from "../actions/marca";
-import { listTipo } from "../actions/tipo";
-import { listTensao } from "../actions/tensao";
-
 class Administracao extends Component {
   state = {
-    sensores: [],
-    marcas: [],
-    tipos: [],
-    tensoes: [],
-    open: null
+    open: ""
   };
-
-  async componentDidMount() {
-    let sensorRequest = await listSensores();
-    let marcaRequest = await listMarca();
-    let tipoRequest = await listTipo();
-    let tensaoRequest = await listTensao();
-
-    this.setState({ marcas: marcaRequest.data });
-    this.setState({ tipos: tipoRequest.data });
-    this.setState({ tensoes: tensaoRequest.data });
-    this.setState({ sensores: sensorRequest.data.sensor });
-  }
 
   toggleCollapse = e => {
     // eslint-disable-next-line default-case
     if (e.target.id === this.state.open) {
-      this.setState({ open: null });
+      this.setState({ open: "" });
     } else {
       this.setState({ open: e.target.id });
     }
@@ -52,10 +31,10 @@ class Administracao extends Component {
           </ListGroupItem>
           <Collapse isOpen={this.state.open === "sensores"}>
             <SensorTable
-              sensores={this.state.sensores}
-              marcas={this.state.marcas}
-              tipos={this.state.tipos}
-              tensoes={this.state.tensoes}
+              sensores={this.props.sensores}
+              marcas={this.props.marcas}
+              tipos={this.props.tipos}
+              tensoes={this.props.tensoes}
             ></SensorTable>
           </Collapse>
 
@@ -68,7 +47,7 @@ class Administracao extends Component {
             Marcas e Fornecedores
           </ListGroupItem>
           <Collapse isOpen={this.state.open === "marcas"}>
-            <GeneralTable tableType={this.state.marcas}></GeneralTable>
+            <GeneralTable tableType={this.props.marcas}></GeneralTable>
           </Collapse>
 
           <ListGroupItem
@@ -80,7 +59,7 @@ class Administracao extends Component {
             Tipos de sensor
           </ListGroupItem>
           <Collapse isOpen={this.state.open === "tipos"}>
-            <GeneralTable tableType={this.state.tipos}></GeneralTable>
+            <GeneralTable tableType={this.props.tipos}></GeneralTable>
           </Collapse>
 
           <ListGroupItem
@@ -92,7 +71,7 @@ class Administracao extends Component {
             Tensóes de bateria
           </ListGroupItem>
           <Collapse isOpen={this.state.open === "tensoes"}>
-            <GeneralTable tableType={this.state.tensoes}></GeneralTable>
+            <GeneralTable tableType={this.props.tensoes}></GeneralTable>
           </Collapse>
         </ListGroup>
       </div>
