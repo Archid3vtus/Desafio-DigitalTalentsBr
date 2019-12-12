@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Collapse, Table, ListGroup, ListGroupItem, Spinner } from "reactstrap";
+import SensorTable from "../components/SensorTable";
 
 import { listSensores } from "../actions/sensor";
 import { listMarca } from "../actions/marca";
@@ -117,7 +118,12 @@ class Administracao extends Component {
             Sensores
           </ListGroupItem>
           <Collapse isOpen={this.state.sensorCollapse}>
-            {this.sensorTable()}
+            <SensorTable
+              sensores={this.state.sensores}
+              marcas={this.state.marcas}
+              tipos={this.state.tipos}
+              tensoes={this.state.tensoes}
+            ></SensorTable>
           </Collapse>
           <ListGroupItem
             id="marca"
