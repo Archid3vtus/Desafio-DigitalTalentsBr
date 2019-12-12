@@ -5,6 +5,7 @@ import { Container } from "reactstrap";
 
 import TabBar from "./components/TabBar";
 import Administracao from "./views/Administracao";
+import Sensores from "./views/Sensores";
 
 import { listSensores } from "./actions/sensor";
 import { listMarca } from "./actions/marca";
@@ -48,6 +49,12 @@ class App extends Component {
                 tipos={this.state.tipos}
                 tensoes={this.state.tensoes}
               />
+            )}
+          />
+          <Route
+            path="/sensores"
+            render={props => (
+              <Sensores {...props} sensores={this.state.sensores} />
             )}
           />
         </Container>
