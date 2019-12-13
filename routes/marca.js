@@ -23,4 +23,13 @@ router.get("/list", (req, res) => {
     });
 });
 
+/**
+ * Register a marca
+ */
+router.post("/add", (req, res) => {
+  Marca.create({ nome: req.body.nome }).then(marca => {
+    res.status(200).send(marca);
+  });
+});
+
 module.exports = router;

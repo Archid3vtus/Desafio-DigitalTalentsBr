@@ -3,7 +3,9 @@ import { Collapse, ListGroup, ListGroupItem, Button, Modal } from "reactstrap";
 import SensorTable from "../components/SensorTable";
 import GeneralTable from "../components/GeneralTable";
 import SensorSubmitForm from "../components/SensorSubmitForm";
+import MarcaSubmitForm from "../components/MarcaSubmitForm";
 import { deleteSensor, addSensor, editSensor } from "../actions/sensor";
+import { addMarca } from "../actions/marca";
 
 class Administracao extends Component {
   state = {
@@ -47,6 +49,12 @@ class Administracao extends Component {
             toggleModal={this.toggleModal}
           />
         );
+        break;
+      case "marcas":
+        response = (
+          <MarcaSubmitForm toggleModal={this.toggleModal} action={addMarca} />
+        );
+        break;
     }
 
     return response;
@@ -101,6 +109,9 @@ class Administracao extends Component {
             Marcas e Fornecedores
           </ListGroupItem>
           <Collapse isOpen={this.state.open === "marcas"}>
+            <Button name="add" color="success" onClick={this.toggleModal}>
+              Novo
+            </Button>
             <GeneralTable tableType={this.props.marcas}></GeneralTable>
           </Collapse>
 
