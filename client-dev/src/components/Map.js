@@ -39,7 +39,7 @@ const Map = props => {
         Teste
       </Badge>*/}
 
-      {props.sensores.map(sensor => {
+      {props.sensores.map((sensor, i) => {
         return (
           <Badge
             lat={sensor.Localizacao.latitude}
@@ -47,6 +47,9 @@ const Map = props => {
             href="#"
             color="danger"
             pill
+            key={i}
+            id={i}
+            onClick={props.onSensorClick}
           >
             {sensor.codename}
           </Badge>

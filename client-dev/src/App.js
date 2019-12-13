@@ -54,7 +54,11 @@ class App extends Component {
           <Route
             path="/sensores"
             render={props => (
-              <Sensores {...props} sensores={this.state.sensores} />
+              <Sensores
+                {...props}
+                sensores={this.state.sensores}
+                tipos={this.state.tipos}
+              />
             )}
           />
         </Container>
