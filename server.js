@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require("path");
 const bodyParser = require("body-parser");
 const sequelize = require("./db/models/index").sequelize;
 const addData = require("./helpers/initialData");
@@ -20,6 +21,12 @@ app.use("/api/marca", marca);
 app.use("/api/tipo", tipo);
 app.use("/api/tensao", tensao);
 app.use("/api/medida", medida);
+
+// serve react build
+app.use(express.static(path.join(__dirname, "client")));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname + "/client/index.html"));
+});
 
 const port = 5000;
 app.listen(port, () => {
