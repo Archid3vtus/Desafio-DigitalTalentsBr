@@ -1,11 +1,28 @@
 import React, { Component } from "react";
-import { Collapse, ListGroup, ListGroupItem } from "reactstrap";
+import {
+  Collapse,
+  ListGroup,
+  ListGroupItem,
+  Button,
+  Modal,
+  ModalBody,
+  ModalHeader,
+  ModalFooter,
+  Form,
+  FormGroup,
+  Label,
+  Input,
+  Row,
+  Col
+} from "reactstrap";
 import SensorTable from "../components/SensorTable";
 import GeneralTable from "../components/GeneralTable";
+import SensorSubmitForm from "../components/SensorSubmitForm";
 
 class Administracao extends Component {
   state = {
-    open: ""
+    open: "",
+    modalOpen: false
   };
 
   toggleCollapse = e => {
@@ -17,9 +34,36 @@ class Administracao extends Component {
     }
   };
 
+  toggleModal = e => {
+    this.setState({ modalOpen: !this.state.modalOpen });
+  };
+
+  testForm = e => {
+    console.log(e.target.value);
+  };
+
+  modalContent = () => {
+    let response;
+    // eslint-disable-next-line default-case
+    switch (this.state.open) {
+      case "sensores":
+        response = (
+          <SensorSubmitForm
+            marcas={this.props.marcas}
+            tipos={this.props.tipos}
+            tensoes={this.props.tensoes}
+          />
+        );
+    }
+
+    return response;
+  };
+
   render() {
     return (
       <div>
+        <Modal isOpen={this.state.modalOpen}>{this.modalContent()}</Modal>
+
         <ListGroup>
           <ListGroupItem
             id="sensores"
@@ -30,6 +74,10 @@ class Administracao extends Component {
             Sensores
           </ListGroupItem>
           <Collapse isOpen={this.state.open === "sensores"}>
+            <Button color="success" onClick={this.toggleModal}>
+              Novo
+            </Button>
+
             <SensorTable
               sensores={this.props.sensores}
               marcas={this.props.marcas}
