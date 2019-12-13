@@ -23,7 +23,6 @@ class App extends Component {
   };
 
   async componentDidMount() {
-    let sensorRequest = await listSensores();
     let marcaRequest = await listMarca();
     let tipoRequest = await listTipo();
     let tensaoRequest = await listTensao();
@@ -31,7 +30,14 @@ class App extends Component {
     this.setState({ marcas: marcaRequest.data });
     this.setState({ tipos: tipoRequest.data });
     this.setState({ tensoes: tensaoRequest.data });
-    this.setState({ sensores: sensorRequest.data.sensor });
+
+    listSensores()
+      .then(res => {
+        this.setState({ sensores: res.data.sensor });
+      })
+      .catch(err => {
+        alert("Por favor, cadastre um novo sensor!");
+      });
   }
 
   render() {

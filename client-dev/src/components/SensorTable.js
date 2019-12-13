@@ -3,7 +3,7 @@ import { Spinner, Table, Button } from "reactstrap";
 
 function SensorTable(props) {
   if (props.sensores.length === 0) {
-    return <Spinner />;
+    return <div></div>;
   }
 
   return (
