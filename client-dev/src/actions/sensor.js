@@ -13,3 +13,10 @@ export const listSensores = async () => {
 export const addSensor = async data => {
   return await axios.post("/api/sensor/add", data);
 };
+
+/**
+ * Delete a sensor
+ */
+export const deleteSensor = async id => {
+  return await axios.delete(`/api/sensor/remove/${id}`);
+};

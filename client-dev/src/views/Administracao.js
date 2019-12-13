@@ -1,23 +1,9 @@
 import React, { Component } from "react";
-import {
-  Collapse,
-  ListGroup,
-  ListGroupItem,
-  Button,
-  Modal,
-  ModalBody,
-  ModalHeader,
-  ModalFooter,
-  Form,
-  FormGroup,
-  Label,
-  Input,
-  Row,
-  Col
-} from "reactstrap";
+import { Collapse, ListGroup, ListGroupItem, Button, Modal } from "reactstrap";
 import SensorTable from "../components/SensorTable";
 import GeneralTable from "../components/GeneralTable";
 import SensorSubmitForm from "../components/SensorSubmitForm";
+import { deleteSensor, addSensor } from "../actions/sensor";
 
 class Administracao extends Component {
   state = {
@@ -26,7 +12,6 @@ class Administracao extends Component {
   };
 
   toggleCollapse = e => {
-    // eslint-disable-next-line default-case
     if (e.target.id === this.state.open) {
       this.setState({ open: "" });
     } else {
@@ -36,10 +21,6 @@ class Administracao extends Component {
 
   toggleModal = e => {
     this.setState({ modalOpen: !this.state.modalOpen });
-  };
-
-  testForm = e => {
-    console.log(e.target.value);
   };
 
   modalContent = () => {
@@ -57,6 +38,12 @@ class Administracao extends Component {
     }
 
     return response;
+  };
+
+  onDeleteSensor = e => {
+    deleteSensor(e.target.name).then(data => {
+      window.location.reload();
+    });
   };
 
   render() {
@@ -79,6 +66,7 @@ class Administracao extends Component {
             </Button>
 
             <SensorTable
+              onDeleteSensor={this.onDeleteSensor}
               sensores={this.props.sensores}
               marcas={this.props.marcas}
               tipos={this.props.tipos}

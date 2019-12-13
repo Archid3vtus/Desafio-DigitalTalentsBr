@@ -1,5 +1,5 @@
 import React from "react";
-import { Spinner, Table } from "reactstrap";
+import { Spinner, Table, Button } from "reactstrap";
 
 function SensorTable(props) {
   if (props.sensores.length === 0) {
@@ -10,6 +10,8 @@ function SensorTable(props) {
     <Table responsive striped>
       <thead>
         <tr>
+          <th></th>
+          <th></th>
           <th>id</th>
           <th>Codenome</th>
           <th>Tensão da Bateria</th>
@@ -26,7 +28,19 @@ function SensorTable(props) {
         {props.sensores.map((sensor, i) => {
           return (
             <tr key={i}>
-              <th>{sensor.id}</th>
+              <td>
+                <Button
+                  name={sensor.id}
+                  color="danger"
+                  onClick={props.onDeleteSensor}
+                >
+                  Excluir
+                </Button>
+              </td>
+              <td>
+                <Button color="primary">Editar</Button>
+              </td>
+              <td>{sensor.id}</td>
               <td>{sensor.codename}</td>
               <td>
                 {
