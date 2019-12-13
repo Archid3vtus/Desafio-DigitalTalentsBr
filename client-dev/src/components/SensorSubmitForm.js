@@ -11,7 +11,6 @@ import {
   Row,
   Col
 } from "reactstrap";
-import { addSensor } from "../actions/sensor";
 
 class SensorSubmitForm extends Component {
   state = {
@@ -27,19 +26,43 @@ class SensorSubmitForm extends Component {
   };
 
   submitForm = e => {
-    addSensor(this.state).then(data => {
-      window.location.reload();
-    });
+    if (this.props.sensor) {
+      this.props.action(this.state, this.props.sensor.id).then(data => {
+        window.location.reload();
+      });
+    } else {
+      this.props.action(this.state).then(data => {
+        window.location.reload();
+      });
+    }
   };
 
   onChangeInput = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+  componentDidMount() {
+    if (this.props.sensor) {
+      this.setState({
+        codename: this.props.sensor.codename,
+        altura: this.props.sensor.Tamanho.altura,
+        largura: this.props.sensor.Tamanho.largura,
+        comprimento: this.props.sensor.Tamanho.comprimento,
+        latitude: this.props.sensor.Localizacao.latitude,
+        longitude: this.props.sensor.Localizacao.longitude,
+        tipo_id: this.props.sensor.tipo_id,
+        marca_id: this.props.sensor.marca_id,
+        tensao_id: this.props.sensor.tensao_id
+      });
+    }
+  }
+
   render() {
     return (
       <div>
-        <ModalHeader toggle={this.toggleModal}>Cadastro de sensor</ModalHeader>
+        <ModalHeader toggle={this.props.toggleModal}>
+          Cadastro de sensor
+        </ModalHeader>
         <ModalBody>
           <Form>
             <Row form>

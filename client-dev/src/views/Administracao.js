@@ -3,12 +3,14 @@ import { Collapse, ListGroup, ListGroupItem, Button, Modal } from "reactstrap";
 import SensorTable from "../components/SensorTable";
 import GeneralTable from "../components/GeneralTable";
 import SensorSubmitForm from "../components/SensorSubmitForm";
-import { deleteSensor, addSensor } from "../actions/sensor";
+import { deleteSensor, addSensor, editSensor } from "../actions/sensor";
 
 class Administracao extends Component {
   state = {
     open: "",
-    modalOpen: false
+    modalOpen: false,
+    sensorModalMode: "",
+    toBeEdited: null
   };
 
   toggleCollapse = e => {
@@ -20,7 +22,12 @@ class Administracao extends Component {
   };
 
   toggleModal = e => {
-    this.setState({ modalOpen: !this.state.modalOpen });
+    if (e.target.name === "add") this.setState({ toBeEdited: null });
+
+    this.setState({
+      modalOpen: !this.state.modalOpen,
+      sensorModalMode: e.target.name
+    });
   };
 
   modalContent = () => {
@@ -30,9 +37,14 @@ class Administracao extends Component {
       case "sensores":
         response = (
           <SensorSubmitForm
+            sensor={this.state.toBeEdited}
             marcas={this.props.marcas}
             tipos={this.props.tipos}
             tensoes={this.props.tensoes}
+            action={
+              this.state.sensorModalMode === "add" ? addSensor : editSensor
+            }
+            toggleModal={this.toggleModal}
           />
         );
     }
@@ -44,6 +56,11 @@ class Administracao extends Component {
     deleteSensor(e.target.name).then(data => {
       window.location.reload();
     });
+  };
+
+  onEditSensor = data => e => {
+    this.setState({ toBeEdited: data });
+    this.toggleModal(e);
   };
 
   render() {
@@ -61,12 +78,13 @@ class Administracao extends Component {
             Sensores
           </ListGroupItem>
           <Collapse isOpen={this.state.open === "sensores"}>
-            <Button color="success" onClick={this.toggleModal}>
+            <Button name="add" color="success" onClick={this.toggleModal}>
               Novo
             </Button>
 
             <SensorTable
               onDeleteSensor={this.onDeleteSensor}
+              onEditSensor={this.onEditSensor}
               sensores={this.props.sensores}
               marcas={this.props.marcas}
               tipos={this.props.tipos}

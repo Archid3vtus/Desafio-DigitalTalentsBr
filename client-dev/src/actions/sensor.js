@@ -20,3 +20,10 @@ export const addSensor = async data => {
 export const deleteSensor = async id => {
   return await axios.delete(`/api/sensor/remove/${id}`);
 };
+
+/**
+ * Edit a sensor
+ */
+export const editSensor = async (data, id) => {
+  return await axios.put(`/api/sensor/edit/${id}`, data);
+};

@@ -38,7 +38,13 @@ function SensorTable(props) {
                 </Button>
               </td>
               <td>
-                <Button color="primary">Editar</Button>
+                <Button
+                  name="edit"
+                  color="primary"
+                  onClick={props.onEditSensor(sensor)}
+                >
+                  Editar
+                </Button>
               </td>
               <td>{sensor.id}</td>
               <td>{sensor.codename}</td>
