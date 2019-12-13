@@ -6,7 +6,7 @@ Este repositório contém todo o código desenvolvido que bate com todos os requ
 
 ## Requisitos
 
-1. É necessário que exista um banco de dados PostgreSQL com nome de **database**, com senha **a1234567**
+1. É necessário que exista um servidor local PostgreSQL com um usuário **postgres** e a senha de acesso **a1234567**. Também será necessário que exista um banco de dados com nome de **database**.
 
 2. NodeJS instalado, junto com seu gerenciador de pacotes (npm).
 
