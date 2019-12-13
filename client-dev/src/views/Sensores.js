@@ -5,15 +5,21 @@ import {
   Col,
   ListGroup,
   ListGroupItem,
-  Collapse
+  Collapse,
+  InputGroup,
+  InputGroupAddon,
+  Input,
+  Button
 } from "reactstrap";
 import Chart from "../components/Chart";
-
 import Map from "../components/Map";
+
+import { addMedida } from "../actions/medida";
 
 class Sensores extends Component {
   state = {
     selectedSensor: null,
+    newMedida: "",
     isOpen: false
   };
 
@@ -26,13 +32,26 @@ class Sensores extends Component {
     });
   };
 
+  onInputChange = e => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+
+  submitNewMedida = e => {
+    addMedida({
+      valor: this.state.newMedida,
+      sensor_id: this.state.selectedSensor.id
+    }).then(res => {
+      window.location.reload();
+    });
+  };
+
   render() {
     if (this.props.sensores.length === 0) {
       return <Spinner></Spinner>;
     }
 
     return (
-      <Row>
+      <Row style={{ paddingBottom: "10px" }}>
         <Col xs="12" sm="9">
           <div style={{ height: "90vh", width: "100%" }}>
             <Map
@@ -71,6 +90,19 @@ class Sensores extends Component {
                   : null
               }
             />
+            <InputGroup>
+              <Input
+                type="number"
+                placeholder="Valor"
+                name="newMedida"
+                value={this.state.newMedidaField}
+                onChange={this.onInputChange}
+              />
+
+              <InputGroupAddon addonType="append">
+                <Button onClick={this.submitNewMedida}>Nova Medição</Button>
+              </InputGroupAddon>
+            </InputGroup>
           </Collapse>
         </Col>
       </Row>
