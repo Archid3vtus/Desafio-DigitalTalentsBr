@@ -1,5 +1,6 @@
 const express = require("express");
 const Sensor = require("../db/models").Sensor;
+const Medida = require("../db/models").Medida;
 const Tamanho = require("../db/models").Tamanho;
 const Localizacao = require("../db/models").Localizacao;
 
@@ -17,7 +18,7 @@ router.get("/", (req, res) => {
  */
 router.get("/list", (req, res) => {
   Sensor.findAll({
-    include: [Tamanho, Localizacao]
+    include: [Tamanho, Localizacao, Medida]
   })
     .then(sensor => {
       if (sensor.length === 0)

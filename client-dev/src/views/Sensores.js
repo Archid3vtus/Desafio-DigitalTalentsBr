@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Spinner } from "reactstrap";
+import { Spinner, Row, Col, ListGroup, ListGroupItem } from "reactstrap";
 
 import Map from "../components/Map";
 
@@ -10,9 +10,24 @@ class Sensores extends Component {
     }
 
     return (
-      <div style={{ height: "100vh", width: "100%" }}>
-        <Map zoom={2} sensores={this.props.sensores}></Map>
-      </div>
+      <Row>
+        <Col xs="12" sm="9">
+          <div style={{ height: "90vh", width: "100%" }}>
+            <Map zoom={2} sensores={this.props.sensores}></Map>
+          </div>
+        </Col>
+        <Col xs="12" sm="3">
+          <ListGroup>
+            {this.props.sensores.map(sensor => {
+              return (
+                <ListGroupItem tag="button" action>
+                  {sensor.codename}
+                </ListGroupItem>
+              );
+            })}
+          </ListGroup>
+        </Col>
+      </Row>
     );
   }
 }
