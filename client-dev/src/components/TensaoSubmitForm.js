@@ -10,9 +10,9 @@ import {
   Input
 } from "reactstrap";
 
-class MarcaSubmitForm extends Component {
+class TensaoSubmitForm extends Component {
   state = {
-    nome: ""
+    valor: ""
   };
 
   onInputChange = e => {
@@ -29,16 +29,16 @@ class MarcaSubmitForm extends Component {
     return (
       <div>
         <ModalHeader toggle={this.props.toggleModal}>
-          Cadastro de marca
+          Cadastro de tensao de bateria
         </ModalHeader>
         <ModalBody>
           <Form>
             <FormGroup>
-              <Label for="nome">Nome</Label>
+              <Label for="valor">valor</Label>
               <Input
-                name="nome"
+                name="valor"
                 type="text"
-                value={this.state.nome}
+                value={this.state.valor}
                 onChange={this.onInputChange}
               />
             </FormGroup>
@@ -54,4 +54,4 @@ class MarcaSubmitForm extends Component {
   }
 }
 
-export default MarcaSubmitForm;
+export default TensaoSubmitForm;

@@ -24,4 +24,13 @@ router.get("/list", (req, res) => {
     });
 });
 
+/**
+ * Register a new tensao
+ */
+router.post("/add", (req, res) => {
+  Tensao.create({ valor: req.body.valor }).then(tensao => {
+    return res.status(200).send(tensao);
+  });
+});
+
 module.exports = router;

@@ -4,8 +4,10 @@ import SensorTable from "../components/SensorTable";
 import GeneralTable from "../components/GeneralTable";
 import SensorSubmitForm from "../components/SensorSubmitForm";
 import MarcaSubmitForm from "../components/MarcaSubmitForm";
+import TensaoSubmitForm from "../components/TensaoSubmitForm";
 import { deleteSensor, addSensor, editSensor } from "../actions/sensor";
 import { addMarca } from "../actions/marca";
+import { addTensao } from "../actions/tensao";
 
 class Administracao extends Component {
   state = {
@@ -53,6 +55,12 @@ class Administracao extends Component {
       case "marcas":
         response = (
           <MarcaSubmitForm toggleModal={this.toggleModal} action={addMarca} />
+        );
+        break;
+
+      case "tensoes":
+        response = (
+          <TensaoSubmitForm toggleModal={this.toggleModal} action={addTensao} />
         );
         break;
     }
@@ -136,6 +144,9 @@ class Administracao extends Component {
             Tensóes de bateria
           </ListGroupItem>
           <Collapse isOpen={this.state.open === "tensoes"}>
+            <Button name="add" color="success" onClick={this.toggleModal}>
+              Novo
+            </Button>
             <GeneralTable tableType={this.props.tensoes}></GeneralTable>
           </Collapse>
         </ListGroup>
