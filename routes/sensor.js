@@ -112,17 +112,25 @@ router.put("/edit/:id", (req, res) => {
  * Delete a sensor
  */
 router.delete("/remove/:id", (req, res) => {
-  Sensor.destroy({
-    where: {
-      id: req.params.id
+  Sensor.count().then(number => {
+    if (number === 1) {
+      return res.status(400).send({
+        error: { onlyOne: "É necessário que exista pelo menos um sensor" }
+      });
     }
-  }).then(removed => {
-    if (removed < 1)
-      return res
-        .status(404)
-        .send({ error: { notFound: "Nenhum sensor encontrado" } });
 
-    return res.status(200).send({ success: true });
+    Sensor.destroy({
+      where: {
+        id: req.params.id
+      }
+    }).then(removed => {
+      if (removed < 1)
+        return res
+          .status(404)
+          .send({ error: { notFound: "Nenhum sensor encontrado" } });
+
+      return res.status(200).send({ success: true });
+    });
   });
 });
 
