@@ -19,4 +19,13 @@ router.get("/list", (req, res) => {
   });
 });
 
+/**
+ * Register a new tipo
+ */
+router.post("/add", (req, res) => {
+  Tipo.create({ nome: req.body.nome, sulfixo: req.body.sulfixo }).then(tipo => {
+    return res.status(200).send(tipo);
+  });
+});
+
 module.exports = router;
